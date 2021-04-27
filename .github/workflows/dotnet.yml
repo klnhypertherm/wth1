@@ -25,7 +25,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
     - name: Restore dependencies
-      run: dotnet restore --source ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+      run: dotnet restore ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
     - name: Build
       run: dotnet build --no-restore ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
     - name: Test
