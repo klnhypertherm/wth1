@@ -1,0 +1,29 @@
+name: .NET
+
+on:
+  push:
+    paths: 
+    - './Application'
+    - '.github/workflows/dotnet.yml'
+  pull_request:    
+    paths: 
+    - './Application'
+    - '.github/workflows/dotnet.yml'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2
+    - name: Restore dependencies
+      run: dotnet restore --source ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+    - name: Build
+      run: dotnet build --no-restore --source ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --source ./Application/tests/RazorPagesTestSample.Tests/RazorPagesTestSample.Tests.csproj
