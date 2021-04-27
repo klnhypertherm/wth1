@@ -34,10 +34,9 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+    - run: pwd
       # Deploy ARM template
     - name: Run ARM deploy
-      run: pwd
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
