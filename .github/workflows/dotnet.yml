@@ -42,4 +42,17 @@ jobs:
             title: "${{ env.build_name }} Workflow ${{ github.run_number }} Failed! ",
             body: body
           });
-    
+
+  jobs:
+    build:
+
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v2
+      - name: Docker login
+         run: docker $registryName -u ACR_USERNAME -p ACR_PASSWORD
+      - name: Docker build
+         run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+      - name: Docker push
+         run: docker push $registryName/$repositoryName:$tag
