@@ -9,6 +9,12 @@ name: CI
 #    branches: [ main ]
 #  pull_request:
 #    branches: [ main ]
+
+env:
+  registryName: 'htwh1devopsreg.azurecr.io'
+  repositoryName: 'wth/dotnetcoreapp'
+  dockerFolderPath: 'Application/src/RazorPagesTestSample'
+  tag: ${{ github.run_number }}
     
 on:
   push:
@@ -45,3 +51,9 @@ jobs:
 
       # output containerName variable from template
     - run: echo ${{ steps.deploy.outputs.containerName }}
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'wth/dotnetcoreapp'
+        images: '${{ secrets.ACR_LOGIN_SERVER }}/wth/dotnetcoreapp:${{ github.run_number }}'
+    
+
