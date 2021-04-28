@@ -61,7 +61,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'htwh1devops-dev'
         images: '${{ secrets.ACR_LOGIN_SERVER }}/wth/dotnetcoreapp:${{ github.run_number }}'
+    - name: Azure logout
+      run: |
+        az logout    
