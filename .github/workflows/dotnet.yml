@@ -55,3 +55,13 @@ jobs:
       run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
     - name: Docker push
       run: docker push $registryName/$repositoryName:$tag
+
+  Deploy:
+    needs: Docker
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'htwh1devops-dev'
+        images: '${{ secrets.ACR_LOGIN_SERVER }}/wth/dotnetcoreapp:${{ github.run_number }}'
