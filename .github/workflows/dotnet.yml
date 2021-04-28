@@ -42,8 +42,9 @@ jobs:
             title: "${{ env.build_name }} Workflow ${{ github.run_number }} Failed! ",
             body: body
           });
+    
   Docker:
-
+    needs: DotNet
     runs-on: ubuntu-latest
 
     steps:
